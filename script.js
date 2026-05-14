@@ -12,6 +12,10 @@ const headerContactBtn = document.getElementById("headerContactBtn");
 const hirePopup = document.getElementById("hirePopup");
 const hirePopupClose = document.getElementById("hirePopupClose");
 const hirePopupBackdrop = document.getElementById("hirePopupBackdrop");
+const emailOptions = document.getElementById("emailOptions");
+const emailOptionsClose = document.getElementById("emailOptionsClose");
+const emailOptionsBackdrop = document.getElementById("emailOptionsBackdrop");
+const emailOptionsTriggers = document.querySelectorAll(".email-options-trigger");
 const assistantFab = document.getElementById("assistantFab");
 const assistantPanel = document.getElementById("assistantPanel");
 const assistantClose = document.getElementById("assistantClose");
@@ -38,7 +42,7 @@ function applyTheme(theme) {
 }
 
 const storedTheme = localStorage.getItem("theme");
-applyTheme(storedTheme === "dark" ? "dark" : "light");
+applyTheme(storedTheme === "light" ? "light" : "dark");
 
 if (themeBtn) {
   themeBtn.addEventListener("click", () => {
@@ -47,45 +51,15 @@ if (themeBtn) {
   });
 }
 
-revealNodes.forEach((node, index) => {
-  node.style.transitionDelay = `${Math.min(index * 70, 520)}ms`;
+revealNodes.forEach((node) => {
+  node.classList.add("is-visible");
 });
 
-const revealObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-
-      entry.target.classList.add("is-visible");
-
-      if (entry.target.classList.contains("skill-card")) {
-        const fill = entry.target.querySelector(".skill-fill");
-        if (fill && !fill.dataset.done) {
-          fill.style.width = `${fill.dataset.fill}%`;
-          fill.dataset.done = "1";
-        }
-      }
-    });
-  },
-  { threshold: 0.16 }
-);
-
-revealNodes.forEach((node) => revealObserver.observe(node));
-
-const skillObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (!entry.isIntersecting) return;
-      const fill = entry.target;
-      if (fill.dataset.done) return;
-      fill.style.width = `${fill.dataset.fill}%`;
-      fill.dataset.done = "1";
-    });
-  },
-  { threshold: 0.3 }
-);
-
-skillFills.forEach((fill) => skillObserver.observe(fill));
+skillFills.forEach((fill) => {
+  if (fill.dataset.done) return;
+  fill.style.width = `${fill.dataset.fill}%`;
+  fill.dataset.done = "1";
+});
 
 if (tiltCard) {
   tiltCard.addEventListener("mousemove", (event) => {
@@ -126,18 +100,38 @@ function attachSubmitState(form) {
 
 attachSubmitState(popupForm);
 
+function syncModalLock() {
+  const isHireOpen = hirePopup && !hirePopup.hidden;
+  const isEmailOpen = emailOptions && !emailOptions.hidden;
+  document.body.classList.toggle("modal-open", Boolean(isHireOpen || isEmailOpen));
+}
+
 function openHirePopup() {
   if (!hirePopup || !hirePopupBackdrop) return;
   hirePopup.hidden = false;
   hirePopupBackdrop.hidden = false;
-  document.body.classList.add("modal-open");
+  syncModalLock();
 }
 
 function closeHirePopup() {
   if (!hirePopup || !hirePopupBackdrop) return;
   hirePopup.hidden = true;
   hirePopupBackdrop.hidden = true;
-  document.body.classList.remove("modal-open");
+  syncModalLock();
+}
+
+function openEmailOptions() {
+  if (!emailOptions || !emailOptionsBackdrop) return;
+  emailOptions.hidden = false;
+  emailOptionsBackdrop.hidden = false;
+  syncModalLock();
+}
+
+function closeEmailOptions() {
+  if (!emailOptions || !emailOptionsBackdrop) return;
+  emailOptions.hidden = true;
+  emailOptionsBackdrop.hidden = true;
+  syncModalLock();
 }
 
 function openAssistant() {
@@ -169,7 +163,12 @@ function addAssistantMessage(text, type) {
 function routeToSection(sectionId, openContactPopup) {
   const section = document.getElementById(sectionId);
   if (section) {
-    section.scrollIntoView({ behavior: "smooth", block: "start" });
+    window.setTimeout(() => {
+      const header = document.querySelector(".site-header");
+      const headerOffset = header ? header.getBoundingClientRect().height + 18 : 18;
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY - headerOffset;
+      window.scrollTo({ top: Math.max(sectionTop, 0), behavior: "smooth" });
+    }, 80);
   }
   if (openContactPopup) {
     window.setTimeout(() => {
@@ -225,10 +224,12 @@ function getAssistantReply(question) {
   }
 
   if (includesAny(clean, ["skill", "tech", "tools", "stack", "expertise", "capabilities"])) {
-    return "Top skills: SQL, Python, Tableau, R, Excel, and business analytics storytelling.";
+    routeToSection("skills", false);
+    return "Top skills: SQL, Python, Tableau, R, Excel, and business analytics storytelling. Taking you to the Skills section now.";
   }
   if (includesAny(clean, ["project", "portfolio", "best work", "work samples", "case studies"])) {
-    return "Start with Airbnb Market Analysis, Global Work Hours and Productivity, and VDI Log Analytics for strongest business-impact examples.";
+    routeToSection("projects", false);
+    return "Start with Airbnb Market Analysis, Global Work Hours and Productivity, and VDI Log Analytics for strongest business-impact examples. Taking you to the Projects section now.";
   }
   if (includesAny(clean, ["intern", "internship", "full time", "full-time", "available", "open to", "opportunity", "opportunities"])) {
     return "Yes. Sai is open to Data Analyst and BI opportunities, including internships and full-time roles, and is open to Remote, Hybrid, and Relocation options.";
@@ -237,7 +238,8 @@ function getAssistantReply(question) {
     return "Sai is based in Michigan, United States.";
   }
   if (includesAny(clean, ["cert", "certificate", "certification", "credential", "course"])) {
-    return "Certifications include Google Data Analytics Professional Certificate, Excel Basics for Data Analysis, and Google Cloud Data Analytics.";
+    routeToSection("certifications", false);
+    return "Certifications include Google Data Analytics, Excel Basics for Data Analysis, Google Cloud Data Analytics, Deloitte, Quantium, Tata GenAI, and Data Visualisation credentials. Taking you to the Certifications section now.";
   }
   if (includesAny(clean, ["contact", "email", "phone", "linkedin", "call", "message", "connect"])) {
     routeToSection("contact", true);
@@ -258,6 +260,18 @@ if (hirePopupClose) {
 
 if (hirePopupBackdrop) {
   hirePopupBackdrop.addEventListener("click", closeHirePopup);
+}
+
+emailOptionsTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", openEmailOptions);
+});
+
+if (emailOptionsClose) {
+  emailOptionsClose.addEventListener("click", closeEmailOptions);
+}
+
+if (emailOptionsBackdrop) {
+  emailOptionsBackdrop.addEventListener("click", closeEmailOptions);
 }
 
 if (assistantFab) {
@@ -294,6 +308,7 @@ if (assistantForm) {
 
 window.addEventListener("keydown", (event) => {
   if (event.key !== "Escape") return;
+  if (emailOptions && !emailOptions.hidden) closeEmailOptions();
   if (hirePopup && !hirePopup.hidden) closeHirePopup();
   if (assistantPanel && !assistantPanel.hidden) closeAssistant();
 });

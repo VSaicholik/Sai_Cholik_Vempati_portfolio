@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,73 @@
   <div class="scroll-progress" id="scrollProgress"></div>
   <div class="bg-orb orb-1" aria-hidden="true"></div>
   <div class="bg-orb orb-2" aria-hidden="true"></div>
+
   <div class="grid-noise" aria-hidden="true"></div>
+  <div class="analytics-bg" aria-hidden="true">
+    <div class="chart-card chart-card-line">
+      <svg viewBox="0 0 260 120" focusable="false">
+        <polyline class="chart-line chart-line-soft" points="10,90 52,72 94,82 136,46 178,58 220,24 250,34"></polyline>
+        <polyline class="chart-line" points="10,96 52,78 94,68 136,52 178,38 220,44 250,18"></polyline>
+        <g class="chart-dots">
+          <circle cx="10" cy="96" r="3"></circle>
+          <circle cx="52" cy="78" r="3"></circle>
+          <circle cx="94" cy="68" r="3"></circle>
+          <circle cx="136" cy="52" r="3"></circle>
+          <circle cx="178" cy="38" r="3"></circle>
+          <circle cx="220" cy="44" r="3"></circle>
+          <circle cx="250" cy="18" r="3"></circle>
+        </g>
+      </svg>
+    </div>
+
+    <div class="chart-card chart-card-bars">
+      <span style="--bar-height: 42%; --bar-delay: 0s"></span>
+      <span style="--bar-height: 68%; --bar-delay: 0.2s"></span>
+      <span style="--bar-height: 35%; --bar-delay: 0.4s"></span>
+      <span style="--bar-height: 82%; --bar-delay: 0.6s"></span>
+      <span style="--bar-height: 58%; --bar-delay: 0.8s"></span>
+      <span style="--bar-height: 74%; --bar-delay: 1s"></span>
+    </div>
+
+    <div class="chart-card chart-card-mini">
+      <svg viewBox="0 0 220 100" focusable="false">
+        <polyline class="chart-line" points="8,74 42,62 76,68 110,34 144,44 178,28 212,18"></polyline>
+      </svg>
+    </div>
+
+    <div class="chart-card chart-card-donut">
+      <svg viewBox="0 0 120 120" focusable="false">
+        <circle class="donut-track" cx="60" cy="60" r="38"></circle>
+        <circle class="donut-ring donut-ring-a" cx="60" cy="60" r="38"></circle>
+        <circle class="donut-ring donut-ring-b" cx="60" cy="60" r="26"></circle>
+      </svg>
+    </div>
+
+    <div class="chart-card chart-card-area">
+      <svg viewBox="0 0 260 130" focusable="false">
+        <path class="area-fill" d="M10 102 L45 88 L80 94 L115 58 L150 70 L185 36 L225 48 L250 24 L250 118 L10 118 Z"></path>
+        <polyline class="chart-line area-line" points="10,102 45,88 80,94 115,58 150,70 185,36 225,48 250,24"></polyline>
+      </svg>
+    </div>
+
+    <div class="chart-card chart-card-scatter">
+      <span style="--x: 14%; --y: 68%; --delay: 0s"></span>
+      <span style="--x: 26%; --y: 42%; --delay: 0.18s"></span>
+      <span style="--x: 38%; --y: 58%; --delay: 0.36s"></span>
+      <span style="--x: 50%; --y: 28%; --delay: 0.54s"></span>
+      <span style="--x: 63%; --y: 46%; --delay: 0.72s"></span>
+      <span style="--x: 76%; --y: 22%; --delay: 0.9s"></span>
+      <span style="--x: 86%; --y: 36%; --delay: 1.08s"></span>
+    </div>
+
+    <div class="chart-card chart-card-bars chart-card-bars-secondary">
+      <span style="--bar-height: 76%; --bar-delay: 0.1s"></span>
+      <span style="--bar-height: 48%; --bar-delay: 0.3s"></span>
+      <span style="--bar-height: 88%; --bar-delay: 0.5s"></span>
+      <span style="--bar-height: 54%; --bar-delay: 0.7s"></span>
+      <span style="--bar-height: 66%; --bar-delay: 0.9s"></span>
+    </div>
+  </div>
 
   <header class="site-header">
     <div class="container nav-wrap">
@@ -273,6 +339,7 @@
     <section id="certifications" class="section">
       <div class="section-head reveal">
         <h2>Certifications</h2>
+        <p>Industry-recognized credentials focused on analytics, reporting, and cloud data workflows.</p>
       </div>
 
       <div class="cert-grid">
@@ -288,7 +355,7 @@
           <p>Core analytics workflow, data cleaning, SQL, visualization, and business storytelling.</p>
           <a href="https://www.coursera.org/account/accomplishments/professional-cert/F4R15WIVOD06" target="_blank" rel="noopener">
             <i class="fa-solid fa-certificate" aria-hidden="true"></i>
-            View Certification
+            Verify Credential
           </a>
         </article>
         <article class="cert-card reveal">
@@ -303,7 +370,7 @@
           <p>Spreadsheet fundamentals for analysis, including formulas, data preparation, and practical reporting.</p>
           <a href="https://www.coursera.org/account/accomplishments/verify/Y41BFOPHFHYW" target="_blank" rel="noopener">
             <i class="fa-solid fa-certificate" aria-hidden="true"></i>
-            View Certification
+            Verify Credential
           </a>
         </article>
         <article class="cert-card reveal">
@@ -318,7 +385,67 @@
           <p>Cloud-based analytics workflows using Google Cloud tools for data processing, exploration, and insights.</p>
           <a href="https://www.coursera.org/account/accomplishments/professional-cert/certificate/B83JH5K267BV" target="_blank" rel="noopener">
             <i class="fa-solid fa-certificate" aria-hidden="true"></i>
-            View Certification
+            Verify Credential
+          </a>
+        </article>
+        <article class="cert-card reveal">
+          <div class="cert-top">
+            <span class="cert-logo data-badge" aria-hidden="true"><i class="fa-solid fa-chart-column"></i></span>
+            <div class="cert-meta">
+              <span>Forage</span>
+              <span>Job Simulation</span>
+            </div>
+          </div>
+          <h3>Data Visualisation: Empowering Business with Effective Insights</h3>
+          <p>Business-focused data visualization practice, including insight communication and dashboard storytelling.</p>
+          <a href="assets/data-visualisation-certificate.pdf" target="_blank" rel="noopener">
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+            View Certificate
+          </a>
+        </article>
+        <article class="cert-card reveal">
+          <div class="cert-top">
+            <span class="cert-logo deloitte-badge" aria-hidden="true"><i class="fa-solid fa-magnifying-glass-chart"></i></span>
+            <div class="cert-meta">
+              <span>Deloitte</span>
+              <span>Data Analytics</span>
+            </div>
+          </div>
+          <h3>Deloitte Data Analytics Job Simulation</h3>
+          <p>Applied analytics tasks covering data interpretation, forensic technology, and business recommendations.</p>
+          <a href="assets/deloitte-data-analytics.pdf" target="_blank" rel="noopener">
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+            View Certificate
+          </a>
+        </article>
+        <article class="cert-card reveal">
+          <div class="cert-top">
+            <span class="cert-logo quantium-badge" aria-hidden="true"><i class="fa-solid fa-database"></i></span>
+            <div class="cert-meta">
+              <span>Quantium</span>
+              <span>Data Analytics</span>
+            </div>
+          </div>
+          <h3>Quantium Data Analytics Job Simulation</h3>
+          <p>Customer analytics and commercial insight exercises using structured data to support business decisions.</p>
+          <a href="assets/quantium-data-analytics.pdf" target="_blank" rel="noopener">
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+            View Certificate
+          </a>
+        </article>
+        <article class="cert-card reveal">
+          <div class="cert-top">
+            <span class="cert-logo ai-badge" aria-hidden="true"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+            <div class="cert-meta">
+              <span>Tata</span>
+              <span>Gen AI</span>
+            </div>
+          </div>
+          <h3>Tata GenAI Powered Data Analytics Job Simulation</h3>
+          <p>Generative AI concepts and practical business use cases for responsible, insight-driven problem solving.</p>
+          <a href="assets/tata-gen-ai-certification.pdf" target="_blank" rel="noopener">
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+            View Certificate
           </a>
         </article>
       </div>
@@ -336,10 +463,10 @@
               <i class="fa-solid fa-user" aria-hidden="true"></i>
               Sai Cholik
             </span>
-            <a class="contact-chip" href="mailto:saicholikvempati@gmail.com">
+            <button class="contact-chip email-options-trigger" type="button">
               <i class="fa-solid fa-envelope" aria-hidden="true"></i>
               saicholikvempati@gmail.com
-            </a>
+            </button>
             <a class="contact-chip" href="tel:+19895728478">
               <i class="fa-solid fa-phone" aria-hidden="true"></i>
               +1 (989) 572-8478
@@ -410,10 +537,10 @@
     </form>
     <p class="hire-popup-links-title">Direct options</p>
     <div class="hire-popup-actions">
-      <a class="hire-popup-link" href="mailto:saicholikvempati@gmail.com">
+      <button class="hire-popup-link email-options-trigger" type="button">
         <i class="fa-solid fa-envelope" aria-hidden="true"></i>
         Email Me
-      </a>
+      </button>
       <a class="hire-popup-link" href="tel:+19895728478">
         <i class="fa-solid fa-phone" aria-hidden="true"></i>
         Call Me
@@ -425,6 +552,29 @@
       <a class="hire-popup-link" href="assets/resume.pdf" target="_blank" rel="noopener">
         <i class="fa-solid fa-file-arrow-down" aria-hidden="true"></i>
         Resume
+      </a>
+    </div>
+  </aside>
+
+  <div class="email-options-backdrop" id="emailOptionsBackdrop" hidden></div>
+  <aside class="email-options" id="emailOptions" role="dialog" aria-modal="true" aria-labelledby="emailOptionsTitle" hidden>
+    <button class="email-options-close" id="emailOptionsClose" type="button" aria-label="Close email options">
+      <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+    </button>
+    <h3 id="emailOptionsTitle">Choose Email App</h3>
+    <p class="email-options-copy">Open a new message to saicholikvempati@gmail.com.</p>
+    <div class="email-options-grid">
+      <a class="email-option" href="https://mail.google.com/mail/?view=cm&fs=1&to=saicholikvempati@gmail.com" target="_blank" rel="noopener">
+        <i class="fa-brands fa-google" aria-hidden="true"></i>
+        Gmail
+      </a>
+      <a class="email-option" href="https://outlook.live.com/mail/0/deeplink/compose?to=saicholikvempati@gmail.com" target="_blank" rel="noopener">
+        <i class="fa-brands fa-microsoft" aria-hidden="true"></i>
+        Outlook
+      </a>
+      <a class="email-option" href="mailto:saicholikvempati@gmail.com">
+        <i class="fa-solid fa-envelope-open-text" aria-hidden="true"></i>
+        Default Mail
       </a>
     </div>
   </aside>
