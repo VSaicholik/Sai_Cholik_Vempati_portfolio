@@ -93,15 +93,17 @@
       </a>
 
       <nav class="main-nav">
+        <span class="nav-pill" id="navPill" aria-hidden="true"></span>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
         <a href="#projects">Projects</a>
         <a href="#certifications">Certifications</a>
         <a href="#contact">Contact</a>
       </nav>
 
       <div class="nav-actions">
-        <button class="ping-btn" id="headerContactBtn" type="button">Contact Me</button>
+        <button class="ping-btn" id="headerContactBtn" type="button"><span>Contact Me</span></button>
         <button id="themeBtn" class="theme-btn" aria-label="Switch color theme">
           <span id="themeIcon" class="theme-glyph" aria-hidden="true"><i class="fa-solid fa-moon"></i></span>
           <span id="themeText" class="theme-text">Dark</span>
@@ -116,7 +118,7 @@
         <p class="eyebrow">Data Analyst | CMU Graduate Student</p>
         <h1>
           I turn complex data into
-          <span class="text-gradient">clear business actions</span>.
+          <span class="text-gradient" id="heroCycle">clear business actions</span>.
         </h1>
         <p class="lead">
           I build dashboards, clean high-volume datasets, run regression and forecasting, and deliver insights teams can use quickly.
@@ -124,7 +126,7 @@
         <p class="lead">Open to Remote, Hybrid, and Relocation opportunities.</p>
 
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#projects">View Projects</a>
+          <a class="btn btn-primary" href="#projects"><span>View Projects</span></a>
           <a class="btn btn-ghost" href="assets/resume.pdf" target="_blank" rel="noopener">Download Resume</a>
         </div>
 
@@ -155,18 +157,26 @@
 
     <section id="about" class="section reveal">
       <div class="section-head">
-        <h2>About Me</h2>
+        <div class="section-head-top">
+          <span class="section-index">01</span>
+          <h2>About Me</h2>
+        </div>
+        <span class="section-line" aria-hidden="true"></span>
       </div>
       <div class="panel">
         <p>
-          I enjoy turning raw operational data into understandable stories. My recent work includes usage analytics on large log files, dashboard development, and optimization-driven forecasting projects. I focus on outputs that are accurate, practical, and easy for non-technical stakeholders to act on.
+          I am a data analytics and business intelligence professional with an M.S. in Information Systems focused on Data Analytics. I turn operational, customer, and performance data into decision-ready dashboards, KPI reporting, and documented insights using Power BI, Tableau, SQL, Python, R, Excel, ETL workflows, and data validation. My experience spans server testing data, university operations reporting, and analyst work where I clean datasets, build reusable reporting views, translate stakeholder questions into metrics, and communicate findings clearly to technical and non-technical teams.
         </p>
       </div>
     </section>
 
     <section id="skills" class="section">
       <div class="section-head reveal">
-        <h2>Skills That Create Impact</h2>
+        <div class="section-head-top">
+          <span class="section-index">02</span>
+          <h2>Skills That Create Impact</h2>
+        </div>
+        <span class="section-line" aria-hidden="true"></span>
       </div>
 
       <div class="skills-grid">
@@ -238,9 +248,97 @@
       </div>
     </section>
 
+    <section id="experience" class="section">
+      <div class="section-head reveal">
+        <div class="section-head-top">
+          <span class="section-index">03</span>
+          <h2>Experience</h2>
+        </div>
+        <span class="section-line" aria-hidden="true"></span>
+      </div>
+
+      <div class="experience-list">
+        <article class="experience-card reveal">
+          <div class="experience-marker" aria-hidden="true"><i class="fa-solid fa-server"></i></div>
+          <div class="experience-content">
+            <div class="experience-top">
+              <div>
+                <h3>Server Tester</h3>
+                <p>Jabil via Lorien/CER | Florence, KY</p>
+              </div>
+              <span>Oct 2026 - Present</span>
+            </div>
+            <ul>
+              <li>Execute high-volume server testing, verifying hardware and system results against work instructions and quality requirements.</li>
+              <li>Record testing outcomes and observed issues in Excel to maintain accurate, traceable production records.</li>
+              <li>Review recurring failures and anomalies, document troubleshooting details, and communicate findings for escalation and process improvement.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="experience-card reveal">
+          <div class="experience-marker" aria-hidden="true"><i class="fa-solid fa-chart-simple"></i></div>
+          <div class="experience-content">
+            <div class="experience-top">
+              <div>
+                <h3>Student Assistant</h3>
+                <p>Central Michigan University Library | Mount Pleasant, MI</p>
+              </div>
+              <span>Aug 2024 - May 2026</span>
+            </div>
+            <ul>
+              <li>Consolidated operational and spending records in Excel and Tableau for monthly summaries of activity, repairs, restocking, additions, and cost patterns.</li>
+              <li>Validated internal records for completeness and consistency, investigating missing, duplicate, and conflicting entries.</li>
+              <li>Translated supervisor reporting needs into tables, visualizations, trends, exceptions, and recommended follow-up actions.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="experience-card reveal">
+          <div class="experience-marker" aria-hidden="true"><i class="fa-solid fa-database"></i></div>
+          <div class="experience-content">
+            <div class="experience-top">
+              <div>
+                <h3>Data Analyst</h3>
+                <p>Rjay Technology | Hyderabad, India</p>
+              </div>
+              <span>Apr 2023 - Mar 2024</span>
+            </div>
+            <ul>
+              <li>Extracted, cleaned, joined, and validated business datasets using SQL, MySQL, Excel, and Python.</li>
+              <li>Built recurring Power BI and Tableau dashboards that communicated KPIs, operational trends, unusual results, and recommendations.</li>
+              <li>Authored SOPs, data dictionaries, validation rules, and metric definitions to support reusable analysis and standardized reporting.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="experience-card reveal">
+          <div class="experience-marker" aria-hidden="true"><i class="fa-brands fa-python"></i></div>
+          <div class="experience-content">
+            <div class="experience-top">
+              <div>
+                <h3>Python Full Stack Developer Intern</h3>
+                <p>RedCarpet Animation VisualFX | India</p>
+              </div>
+              <span>Dec 2022 - Mar 2023</span>
+            </div>
+            <ul>
+              <li>Developed Python and MySQL application components connecting user-facing workflows with database operations.</li>
+              <li>Tested and debugged application functions, validated inputs and database results, and tracked issues using Jira.</li>
+              <li>Prepared technical documentation covering application logic, database structure, testing outcomes, and troubleshooting steps.</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
     <section id="projects" class="section">
       <div class="section-head reveal">
-        <h2>Featured Projects</h2>
+        <div class="section-head-top">
+          <span class="section-index">04</span>
+          <h2>Featured Projects</h2>
+        </div>
+        <span class="section-line" aria-hidden="true"></span>
       </div>
 
       <div class="projects-grid">
@@ -338,8 +436,12 @@
 
     <section id="certifications" class="section">
       <div class="section-head reveal">
-        <h2>Certifications</h2>
+        <div class="section-head-top">
+          <span class="section-index">05</span>
+          <h2>Certifications</h2>
+        </div>
         <p>Industry-recognized credentials focused on analytics, reporting, and cloud data workflows.</p>
+        <span class="section-line" aria-hidden="true"></span>
       </div>
 
       <div class="cert-grid">
@@ -453,7 +555,11 @@
 
     <section id="contact" class="section">
       <div class="section-head reveal">
-        <h2>Contact</h2>
+        <div class="section-head-top">
+          <span class="section-index">06</span>
+          <h2>Contact</h2>
+        </div>
+        <span class="section-line" aria-hidden="true"></span>
       </div>
 
       <div class="contact-wrap">
@@ -467,10 +573,7 @@
               <i class="fa-solid fa-envelope" aria-hidden="true"></i>
               saicholikvempati@gmail.com
             </button>
-            <a class="contact-chip" href="tel:+19895728478">
-              <i class="fa-solid fa-phone" aria-hidden="true"></i>
-              +1 (989) 572-8478
-            </a>
+            
             <span class="contact-chip">
               <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
               Michigan, United States
@@ -536,15 +639,11 @@
       <button class="btn btn-primary send-btn" type="submit">Send Message</button>
     </form>
     <p class="hire-popup-links-title">Direct options</p>
-    <div class="hire-popup-actions">
+      <div class="hire-popup-actions">
       <button class="hire-popup-link email-options-trigger" type="button">
         <i class="fa-solid fa-envelope" aria-hidden="true"></i>
         Email Me
       </button>
-      <a class="hire-popup-link" href="tel:+19895728478">
-        <i class="fa-solid fa-phone" aria-hidden="true"></i>
-        Call Me
-      </a>
       <a class="hire-popup-link" href="https://www.linkedin.com/in/saicholik-vempati-59a091328" target="_blank" rel="noopener">
         <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
         LinkedIn
@@ -613,7 +712,5 @@
   <script src="script.js"></script>
 </body>
 </html>
-
-
 
 
