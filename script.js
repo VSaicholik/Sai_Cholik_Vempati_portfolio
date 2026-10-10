@@ -23,6 +23,11 @@ const assistantForm = document.getElementById("assistantForm");
 const assistantInput = document.getElementById("assistantInput");
 const assistantChat = document.getElementById("assistantChat");
 const assistantSuggestions = document.getElementById("assistantSuggestions");
+const navPill = document.getElementById("navPill");
+const navLinks = document.querySelectorAll(".main-nav a[href^='#']");
+const heroCycle = document.getElementById("heroCycle");
+const statValues = document.querySelectorAll(".stat-value");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 if (yearNode) {
   yearNode.textContent = new Date().getFullYear();
@@ -51,15 +56,26 @@ if (themeBtn) {
   });
 }
 
-revealNodes.forEach((node) => {
-  node.classList.add("is-visible");
-});
+const revealObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      el.classList.add("is-visible");
 
-skillFills.forEach((fill) => {
-  if (fill.dataset.done) return;
-  fill.style.width = `${fill.dataset.fill}%`;
-  fill.dataset.done = "1";
-});
+      const fill = el.querySelector(".skill-fill");
+      if (fill && !fill.dataset.done) {
+        fill.style.width = `${fill.dataset.fill}%`;
+        fill.dataset.done = "1";
+      }
+
+      revealObserver.unobserve(el);
+    });
+  },
+  { threshold: 0.15, rootMargin: "0px 0px -60px 0px" }
+);
+
+revealNodes.forEach((node) => revealObserver.observe(node));
 
 if (tiltCard) {
   tiltCard.addEventListener("mousemove", (event) => {
@@ -76,6 +92,145 @@ if (tiltCard) {
   tiltCard.addEventListener("mouseleave", () => {
     tiltCard.style.transform = "perspective(900px) rotateX(0deg) rotateY(0deg)";
   });
+}
+
+function movePill(link) {
+  if (!navPill || !link) return;
+  navPill.style.width = `${link.offsetWidth}px`;
+  navPill.style.transform = `translateX(${link.offsetLeft}px)`;
+  navPill.style.opacity = "1";
+}
+
+function setActiveNavLink(link) {
+  navLinks.forEach((l) => l.classList.remove("active"));
+  if (!link) return;
+  link.classList.add("active");
+  movePill(link);
+}
+
+if (navLinks.length && navPill) {
+  const sectionLinkMap = new Map();
+  navLinks.forEach((link) => {
+    const targetId = link.getAttribute("href").slice(1);
+    const section = document.getElementById(targetId);
+    if (section) sectionLinkMap.set(section, link);
+  });
+
+  const spyObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const link = sectionLinkMap.get(entry.target);
+        if (link) setActiveNavLink(link);
+      });
+    },
+    { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
+  );
+
+  sectionLinkMap.forEach((_, section) => spyObserver.observe(section));
+
+  window.addEventListener("resize", () => {
+    const current = document.querySelector(".main-nav a.active");
+    if (current) movePill(current);
+  });
+}
+
+if (!prefersReducedMotion) {
+  statValues.forEach((el) => {
+    const match = el.textContent.trim().match(/^(\d+)(.*)$/);
+    if (!match) return;
+    const target = parseInt(match[1], 10);
+    const suffix = match[2];
+    const duration = 1400;
+    let startTime = null;
+
+    function step(timestamp) {
+      if (!startTime) startTime = timestamp;
+      const progress = Math.min((timestamp - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = `${Math.round(eased * target)}${suffix}`;
+      if (progress < 1) window.requestAnimationFrame(step);
+    }
+
+    window.requestAnimationFrame(step);
+  });
+}
+
+if (heroCycle && !prefersReducedMotion) {
+  const cyclePhrases = [
+    "clear business actions",
+    "confident decisions",
+    "actionable insights",
+    "data-driven strategy"
+  ];
+  const typeSpeed = 45;
+  const deleteSpeed = 28;
+  const holdTime = 1900;
+  let phraseIndex = 0;
+  let charIndex = cyclePhrases[0].length;
+  let deleting = false;
+
+  function tickHeroCycle() {
+    const current = cyclePhrases[phraseIndex];
+
+    if (!deleting) {
+      charIndex += 1;
+      if (charIndex >= current.length) {
+        heroCycle.textContent = current;
+        window.setTimeout(() => {
+          deleting = true;
+          tickHeroCycle();
+        }, holdTime);
+        return;
+      }
+      heroCycle.textContent = current.slice(0, charIndex);
+      window.setTimeout(tickHeroCycle, typeSpeed);
+    } else {
+      charIndex -= 1;
+      heroCycle.textContent = current.slice(0, Math.max(charIndex, 0));
+      if (charIndex <= 0) {
+        deleting = false;
+        phraseIndex = (phraseIndex + 1) % cyclePhrases.length;
+        window.setTimeout(tickHeroCycle, 400);
+        return;
+      }
+      window.setTimeout(tickHeroCycle, deleteSpeed);
+    }
+  }
+
+  window.setTimeout(() => {
+    deleting = true;
+    tickHeroCycle();
+  }, 2600);
+}
+
+function attachSpotlight(el) {
+  el.addEventListener("pointermove", (event) => {
+    const rect = el.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+    el.style.setProperty("--spot-x", `${x}%`);
+    el.style.setProperty("--spot-y", `${y}%`);
+  });
+}
+
+function attachTilt(el, intensity) {
+  el.addEventListener("mousemove", (event) => {
+    const rect = el.getBoundingClientRect();
+    const x = (event.clientX - rect.left) / rect.width;
+    const y = (event.clientY - rect.top) / rect.height;
+    const rotateY = (x - 0.5) * intensity;
+    const rotateX = (0.5 - y) * intensity;
+    el.style.transform = `translateY(-6px) perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+  });
+  el.addEventListener("mouseleave", () => {
+    el.style.transform = "";
+  });
+}
+
+if (!prefersReducedMotion) {
+  document.querySelectorAll(".btn-primary, .ping-btn").forEach(attachSpotlight);
+  document.querySelectorAll(".skill-card, .project-card, .cert-card").forEach((card) => attachTilt(card, 5));
 }
 
 function updateScrollProgress() {
@@ -188,13 +343,16 @@ function detectSectionTarget(text) {
   if (includesAny(text, ["skill", "skills", "skillset", "stack", "tech", "technology", "tools", "expertise", "strengths", "capabilities"])) {
     return "skills";
   }
+  if (includesAny(text, ["experience", "work history", "employment", "jobs", "roles", "career"])) {
+    return "experience";
+  }
   if (includesAny(text, ["project", "projects", "portfolio", "work", "case study", "case studies", "work samples"])) {
     return "projects";
   }
   if (includesAny(text, ["certification", "certifications", "certificate", "certificates", "credential", "credentials", "course", "courses"])) {
     return "certifications";
   }
-  if (includesAny(text, ["contact", "reach", "email", "phone", "call", "linkedin", "hire", "message", "connect"])) {
+  if (includesAny(text, ["contact", "reach", "email", "linkedin", "hire", "message", "connect"])) {
     return "contact";
   }
   return "";
@@ -218,6 +376,7 @@ function getAssistantReply(question) {
     routeToSection(target, target === "contact");
     if (target === "about") return "Taking you to the About section now.";
     if (target === "skills") return "Taking you to the Skills section now.";
+    if (target === "experience") return "Taking you to the Experience section now.";
     if (target === "projects") return "Taking you to the Projects section now.";
     if (target === "certifications") return "Taking you to the Certifications section now.";
     return "Taking you to Contact now.";
@@ -231,6 +390,10 @@ function getAssistantReply(question) {
     routeToSection("projects", false);
     return "Start with Airbnb Market Analysis, Global Work Hours and Productivity, and VDI Log Analytics for strongest business-impact examples. Taking you to the Projects section now.";
   }
+  if (includesAny(clean, ["experience", "work history", "employment", "jobs", "roles", "career"])) {
+    routeToSection("experience", false);
+    return "Sai's experience includes server testing, university operations reporting, data analysis, and Python full stack development. Taking you to the Experience section now.";
+  }
   if (includesAny(clean, ["intern", "internship", "full time", "full-time", "available", "open to", "opportunity", "opportunities"])) {
     return "Yes. Sai is open to Data Analyst and BI opportunities, including internships and full-time roles, and is open to Remote, Hybrid, and Relocation options.";
   }
@@ -241,9 +404,9 @@ function getAssistantReply(question) {
     routeToSection("certifications", false);
     return "Certifications include Google Data Analytics, Excel Basics for Data Analysis, Google Cloud Data Analytics, Deloitte, Quantium, Tata GenAI, and Data Visualisation credentials. Taking you to the Certifications section now.";
   }
-  if (includesAny(clean, ["contact", "email", "phone", "linkedin", "call", "message", "connect"])) {
+  if (includesAny(clean, ["contact", "email", "linkedin", "message", "connect"])) {
     routeToSection("contact", true);
-    return "Taking you to Contact now. You can use email, phone, LinkedIn, or the direct message form.";
+    return "Taking you to Contact now. You can use email, LinkedIn, or the direct message form.";
   }
 
   routeToSection("contact", true);
